@@ -1,6 +1,6 @@
 import sys
 import os
-import sysconfig
+import site
 
 
 def check_virtual_environment() -> None:
@@ -27,15 +27,26 @@ def check_virtual_environment() -> None:
         print("the global system.")
         print()
 
-        pkg_path = sysconfig.get_path('purelib')
+        try:
+            pkg_path = site.getsitepackages()[0]
+        except AttributeError:
+            pkg_path = os.path.join(
+                sys.prefix, 'lib',
+                f'python{sys.version_info.major}.{sys.version_info.minor}',
+                'site-packages')
+
         print("Package installation path:")
         print(pkg_path)
     else:
-        print("MATRIX STATUS: You're still plugged in\n")
+        print()
+        print("MATRIX STATUS: You're still plugged in")
+        print()
         print(f"Current Python: {sys.executable}")
-        print("Virtual Environment: None detected\n")
+        print("Virtual Environment: None detected")
+        print()
         print("WARNING: You're in the global environment!")
-        print("The machines can see everything you install.\n")
+        print("The machines can see everything you install.")
+        print()
         print("To enter the construct, run:")
         print("python -m venv matrix_env")
         print("source matrix_env/bin/activate # On Unix")
