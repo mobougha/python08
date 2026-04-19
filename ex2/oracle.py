@@ -1,6 +1,6 @@
 import os
 import sys
-from dotenv import load_dotenv  # type: ignore
+from dotenv import load_dotenv
 
 
 def perform_oracle_check() -> None:
@@ -8,7 +8,6 @@ def perform_oracle_check() -> None:
     print("ORACLE STATUS: Reading the Matrix...")
     print()
 
-    # Try loading .env
     loaded = load_dotenv()
 
     mode = os.environ.get("MATRIX_MODE")
